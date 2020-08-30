@@ -3,8 +3,8 @@ import filter from './filter';
 
 const reducer = (state, action)=>{
     return {
-        todoList: state ? todoList(state.todoList, action) : [],
-        filter: state ? filter(state.filter, action): ''
+        todoList: todoList(state.todoList, action),
+        filter: filter(state.filter, action)
     }
 }
 
