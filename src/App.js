@@ -1,26 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {useReducer} from 'react';
+import reducer from './reducers';
+import Context from './context';
+import TodoList from './components/TodoList';
+import filterOptions from './constants/filterOptions';
+import Filter from './components/Filter';
+import AddTodo from './components/AddTodo';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [state, dispatch] = useReducer(reducer, {
+        filter: filterOptions.SHOW_ALL,
+        todoList: []
+    });
+    return (
+        <Context.Provider value={{ state, dispatch }}>
+            <div className="App">
+                我是 APP，要点：useReducer 的初始值不要传 null，要初始化,否则使用 ajax fetch 不成功
+                <AddTodo/>
+                <TodoList/>
+                <Filter/>
+            </div>
+        </Context.Provider>
+    );
 }
 
 export default App;
